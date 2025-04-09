@@ -1,0 +1,22 @@
+[package]
+name = "promptgen"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "libpromptgen"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[[bin]]
+name = "promptgen"
+path = "src/main.rs"
+
+[dependencies]
+actix-web = "4.10.2"
+anyhow = "1.0.97"
+clap = { version = "4.5.35", features = ["derive"] }
+minijinja = { version = "2.9.0", features = ["debug", "loader"] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+ureq = { version = "3.0.10", features = ["json"] }

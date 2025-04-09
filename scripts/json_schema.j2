@@ -1,0 +1,16 @@
+Your job is to take in JSON and generate a compatible and valid JSON Schema.
+
+Here is a reminder of the fields in the JSON Schema format:
+{% include "json_schema_fields.j2" %}
+
+Here's a reminder of the types in the JSON Schema format:
+{% include "json_schema_types.j2" %}
+
+The JSON you must convert is:
+{{ json }}
+
+Please keep in mind you response will be used as input to a JSON parser. It will be checked and must be valid.
+That means you must respond in legal JSON format and according to the instruction format above and NOTHING ELSE.
+Only the required fields are required. There is no need to utilize every field if it is not necessary.
+
+Please reply now.
