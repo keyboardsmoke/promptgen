@@ -1,1 +1,3 @@
-{% set value = readjson("../../data/sample.json") %}{% set v2 = parsejson(readfile("../../data/sample.json")) %}{{ v2.my_global == value.my_global and v2.my_global == "SO BE IT" }}
+{% set value = readjson("../../data/sample.json") %}
+{% set v2 = parsejson(readfile("../../data/sample.json")) %}
+{{ v2.my_global == value.my_global and v2.my_global == "SO BE IT" }}

@@ -1,1 +1,3 @@
-{% set user_agent = "Fake User Agent" %}{% set value = webget("https://www.whatismyuseragent.com/", user_agent) | regex_search("<textarea id=\"text-box\" rows=\"4\" cols=\"40\">(.*?)</textarea>") %}{% if value %}{{ value[0] == user_agent }}{% else %}false{% endif %}
+{% set user_agent = "Fake User Agent" %}
+{% set value = webget("https://www.whatismyuseragent.com/", user_agent) | regex_search("<textarea id=\"text-box\" rows=\"4\" cols=\"40\">(.*?)</textarea>") %}
+{% if value %}{{ value[0] == user_agent }}{% else %}false{% endif %}
