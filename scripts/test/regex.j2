@@ -1,0 +1,6 @@
+Testing regex filters:
+{{ "test" | regex_match("t.st") }}
+{{ "test" | regex_match("t[a-z]st") }}
+{{ "This is a longer test" | regex_replace("l.nger", "SHORT") }}
+{{ "1 2 3 4 5 6" | regex_split("\\s+") }}
+{{ "http://test-url:80/index.php?hello=1234567890" | regex_search("(http|https)://([a-zA-Z0-9.-]+)(:\\d+)?") }}

@@ -15,8 +15,14 @@ path = "src/main.rs"
 [dependencies]
 actix-web = "4.10.2"
 anyhow = "1.0.97"
+base64 = "0.22.1"
+chrono = "0.4.40"
 clap = { version = "4.5.35", features = ["derive"] }
 minijinja = { version = "2.9.0", features = ["debug", "loader"] }
+md5 = "0.7.0"
+regex = "1.11.1"
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
+sha2 = "0.10.8"
 ureq = { version = "3.0.10", features = ["json"] }
+uuid = { version = "1.16.0", features = ["v4"] }

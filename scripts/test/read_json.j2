@@ -1,1 +1,2 @@
-{% set value = readjson("globals.json") %}{{ value.my_global }}
+{% set value = readjson("globals.json") %}{% set v2 = parsejson(readfile("globals.json")) %}{% set res = v2.my_global == value.my_global %}{% if res %}Success: The two values are equal{% else %}ERROR: The two values are not equal{% endif %}
+JSON: {{ readjson("globals.json") }}

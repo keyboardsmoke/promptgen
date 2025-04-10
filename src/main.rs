@@ -75,7 +75,7 @@ fn execute_script(working_dir: &PathBuf, script_path: &PathBuf, script_filename:
     let prompt = env.get_template(&script_filename)?;
     let context = context!();
     let (rv, _) = prompt.render_and_return_state(context)?;
-    println!("{}", rv);
+    print!("{}", rv);
     Ok(())
 }
 
