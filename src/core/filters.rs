@@ -9,8 +9,9 @@ pub fn register_filters(env: &mut Environment)
         STANDARD.encode(s.as_bytes())
     });
 
-    env.add_filter("b64decode", |s: &str| {
-        STANDARD.decode(s.as_bytes()).unwrap()
+    env.add_filter("b64decode", |s: &str| -> Result<String, minijinja::Error> {
+        let decoded = STANDARD.decode(s.as_bytes()).unwrap();
+        Ok(String::from_utf8(decoded).unwrap())
     });
 
     env.add_filter("hash", |s: &str, algo: &str| -> Result<String, minijinja::Error> {

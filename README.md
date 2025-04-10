@@ -93,9 +93,13 @@ PromptGen includes powerful filters for text transformation and processing:
 
 ### Regular Expressions
 - `regex_match`: Test if a string matches a pattern (returns boolean)
+    - `{{ "test" | regex_match("t.st") }}`
 - `regex_replace`: Replace text matching a pattern
+    - `{{ "This is a longer test" | regex_replace("l.nger", "SHORT") }}`
 - `regex_split`: Split a string by pattern (returns array of strings)
+    - `{{ "1 2 3 4 5 6" | regex_split("\\s+") }}`
 - `regex_search`: Extract capture groups from a string (returns array of captures)
+    - `{{ "http://test-url:80/index.php?hello=1234567890" | regex_search("(http|https)://([a-zA-Z0-9.-]+)(:\\d+)?") }}`
 
 ## Testing
 
