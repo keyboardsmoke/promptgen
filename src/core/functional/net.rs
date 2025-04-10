@@ -23,6 +23,6 @@ fn http_post_request(url: &str, body: &str, useragent: Option<&str>) -> Result<S
 // httpget(url, useragent) -> send a HTTP GET request
 // httppost(url, body, useragent) -> send a HTTP POST request
 pub fn register(env: &mut minijinja::Environment, _working_dir: &PathBuf) {
-    env.add_function("web_get", http_get_request);
-    env.add_function("web_post", http_post_request);
+    env.add_function("webget", http_get_request);
+    env.add_function("webpost", http_post_request);
 }

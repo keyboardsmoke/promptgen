@@ -12,10 +12,15 @@ PromptGen is a specialized tool designed for creating, managing, and executing c
 - **Dynamic Data Inclusion**: Seamlessly incorporate data from various sources:
   - Environment variables (`getenv`)
   - File contents (text with `readfile` and JSON with `readjson`)
-  - HTTP requests (`http_get`, `http_post`)
+  - HTTP requests (`webget`, `webpost`)
+- **Data Processing**: Rich set of filters for text manipulation:
+  - Base64 encoding/decoding
+  - Cryptographic hashing (MD5, SHA-256, SHA-512)
+  - Regular expression operations
 - **Modular Design**: Create reusable prompt components through template inclusion and inheritance
 - **CLI Interface**: Easy to use command-line interface for script execution
 - **Library Support**: Can be used as a standalone tool or integrated as a library in other Rust applications
+- **Testing Support**: Structured testing capabilities for template validation
 
 ## Usage
 
@@ -51,16 +56,58 @@ Please provide a solution with clear explanations.
 
 PromptGen provides several built-in functions for use in templates:
 
+### Environment
 - `getenv(key)`: Get environment variable values
-- `readfile(path)`: Read text file contents
+
+### JSON
+- `parsejson`: Parse JSON from string data
 - `readjson(path)`: Read and parse JSON file contents
-- `httpget(url, [useragent])`: Make HTTP GET requests
-- `httppost(url, body, [useragent])`: Make HTTP POST requests
+
+### I/O
+- `readfile(path)`: Read text file contents
+
+### HTTP
+- `webget(url, [useragent])`: Make HTTP GET requests
+- `webpost(url, body, [useragent])`: Make HTTP POST requests
+
+### Utility
+- `now(format)`: Generate a time string
+- `uuid`: Generate a UUID
+
+## Filters
+
+PromptGen includes powerful filters for text transformation and processing:
+
+### Text Manipulation
+- `repeat`: Repeat a string n times (e.g., `{{ "abc" | repeat(3) }}` → `abcabcabc`)
+
+### Encoding/Decoding
+- `b64encode`: Encode a string to Base64
+- `b64decode`: Decode a Base64 string
+
+### Cryptographic Hashing
+- `hash`: Generate cryptographic hashes with specified algorithm
+  - `{{ "data" | hash("md5") }}`
+  - `{{ "data" | hash("sha256") }}`
+  - `{{ "data" | hash("sha512") }}`
+
+### Regular Expressions
+- `regex_match`: Test if a string matches a pattern (returns boolean)
+- `regex_replace`: Replace text matching a pattern
+- `regex_split`: Split a string by pattern (returns array of strings)
+- `regex_search`: Extract capture groups from a string (returns array of captures)
+
+## Testing
+
+PromptGen supports structured testing of templates through the `scripts/structured_tests/` directory:
+
+- Create test templates that evaluate to boolean expressions
+- Run tests to verify filter and function behavior
+- Example: `{{ "test" | hash("sha256") == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08" }}`
 
 ## Advanced Features
 
 - Template inheritance and inclusion
-- Custom filters (e.g., `repeat` filter)
 - Rich error handling and debugging
 - High performance through Rust's efficiency
 
