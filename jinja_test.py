@@ -13,13 +13,28 @@ def get_structured_tests():
             tests.append(os.path.join("scripts", "structured_tests", file))
     return tests
 
+def get_structured_data_for_test(test_full_path: str):
+    test_full_path = test_full_path.replace(".j2", ".json")
+    test_full_path = test_full_path.replace("structured_tests", "structured_data")
+    if os.path.exists(test_full_path):
+        return test_full_path
+    else:
+        return None
+    
 def run_test(promptgen: str, jinja_file: str):
     """
     We need to feed the j2 file to promptgen, the expected output
     is "true" or "false" depending on the result of the test.
     """
+    args = [promptgen, "--script", jinja_file]
+    structured_data_path = get_structured_data_for_test(jinja_file)
+    if structured_data_path is not None:
+        args.append("--json-file")
+        args.append(structured_data_path)
+    
     print(f"Running test: {jinja_file}")
-    output = subprocess.run([promptgen, "--script", jinja_file], capture_output=True, text=True)
+    # print(f"Args: {args}")
+    output = subprocess.run(args, capture_output=True, text=True)
     if output.returncode == 0:
         return output.stdout.strip() == "true"
     else:

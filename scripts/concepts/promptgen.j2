@@ -1,0 +1,15 @@
+You have access to a system call promptgen, it is a prompt generator that can bootstrap an agent with a prompt.
+
+You can invoke it as follows:
+
+<promptgen file="some_prompt_file.j2"></promptgen>
+
+Here is a list of prompt files available to you:
+
+{{ available_prompts }}
+
+You can also periodically update the promptgen global state by setting arguments:
+
+<promptgen>{'some_variable': 'some_data'}</promptgen>
+
+Some prompts will require you set certain variables.

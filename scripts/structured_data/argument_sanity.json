@@ -1,0 +1,11 @@
+{
+    "test": "test",
+    "test2": false,
+    "test3": 123,
+    "test4": [
+        "test",
+        "test2",
+        "test3"
+    ],
+    "test5": 2.123
+}
