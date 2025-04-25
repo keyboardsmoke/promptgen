@@ -1,4 +1,4 @@
-use std::{ffi::CStr, fs::File, io::Read, path::PathBuf};
+use std::{collections::HashMap, ffi::CStr, fs::File, io::Read, path::PathBuf};
 use minijinja::{Environment, context};
 
 pub mod core;
@@ -23,10 +23,17 @@ fn setup_env(working_dir: &PathBuf, env: &mut Environment) -> anyhow::Result<()>
     Ok(())
 }
 
-fn execute_script(working_dir: &PathBuf, script_path: &PathBuf, script_filename: &str) -> anyhow::Result<()> {
-    let mut script = File::open(&script_path)?;
+pub fn run_script(working_dir: &PathBuf, script_path: &PathBuf, script_filename: &str, arguments: Option<HashMap<String, String>>) -> anyhow::Result<String> {
+    let script = File::open(&script_path);
+    if script.is_err() {
+        return Err(anyhow::anyhow!("Failed to open script file: {}", script_path.to_string_lossy()));
+    }
+    let mut script = script.unwrap();
     let mut script_content = String::new();
-    script.read_to_string(&mut script_content)?;
+    let script_result = script.read_to_string(&mut script_content);
+    if script_result.is_err() {
+        return Err(anyhow::anyhow!("Failed to read script file: {}", script_path.to_string_lossy()));
+    }
 
     let mut env = Environment::new();
 
@@ -34,9 +41,20 @@ fn execute_script(working_dir: &PathBuf, script_path: &PathBuf, script_filename:
 
     env.add_template(&script_filename, &script_content)?;
 
+    if let Some(arguments) = arguments {
+        for (key, value) in arguments {
+            env.add_global(key, value);
+        }
+    }
+
     let prompt = env.get_template(&script_filename)?;
     let context = context!();
     let (rv, _) = prompt.render_and_return_state(context)?;
+    Ok(rv)
+}
+
+pub fn execute_script(working_dir: &PathBuf, script_path: &PathBuf, script_filename: &str) -> anyhow::Result<()> {
+    let rv = run_script(working_dir, script_path, script_filename, None)?;
     println!("{}", rv);
     Ok(())
 }
